@@ -7,34 +7,34 @@ app.use(cors());
 
 app.use(express.json());
 
-let vehicles = [];
+let veiculos = [];
 
 // Função para gerar um ID único
 function generateID() {
-  return vehicles.length > 0 ? vehicles[vehicles.length - 1].id + 1 : 1;
+  return veiculos.length > 0 ? veiculos[veiculos.length - 1].id + 1 : 1;
 }
 
 // 1 - Endpoint para criar veículo
-app.post("/vehicles", (req, res) => {
+app.post("/veiculos", (req, res) => {
   const { modelo, marca, ano, cor, preco } = req.body;
   const id = generateID();
-  const vehicle = { id, modelo, marca, ano, cor, preco };
-  vehicles.push(vehicle);
-  res.status(201).json(vehicle);
+  const veiculo = { id, modelo, marca, ano, cor, preco };
+  veiculos.push(veiculo);
+  res.status(201).json(veiculo);
 });
 
 // 2 - Endpoint para ler todos os veículos
-app.get("/vehicles", (req, res) => {
-  res.json(vehicles);
+app.get("/veiculos", (req, res) => {
+  res.json(veiculos);
 });
 
 // 3 - Endpoint para filtrar veículos por marca
-app.get("/vehicles/filtrar", (req, res) => {
+app.get("/veiculos/filtrar", (req, res) => {
   const { marca } = req.query;
-  const filteredVehicles = vehicles.filter(
-    (vehicle) => vehicle.marca.toLowerCase() === marca.toLowerCase()
+  const veiculosFiltrados = veiculos.filter(
+    (veiculo) => veiculo.marca.toLowerCase() === marca.toLowerCase()
   );
-  res.json(filteredVehicles);
+  res.json(veiculosFiltrados);
 });
 
 app.listen(3333, () => console.log("Servidor rodando na porta 3333"));
